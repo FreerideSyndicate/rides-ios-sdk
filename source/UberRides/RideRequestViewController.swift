@@ -80,7 +80,7 @@ import MapKit
         super.init(coder: aDecoder)
         
         let builder = RideParametersBuilder()
-        builder.setSource(RideRequestViewController.sourceString)
+        let _ = builder.setSource(RideRequestViewController.sourceString)
         let defaultRideParameters = builder.build()
         
         rideRequestView.rideParameters = defaultRideParameters
@@ -315,16 +315,16 @@ extension RideRequestViewController : RideRequestViewDelegate {
         let group = accessGroup ?? Configuration.getDefaultKeychainAccessGroup()
         guard let accessToken = TokenManager.fetchToken(identifer, accessGroup: group), let refreshToken = accessToken.refreshToken else {
             accessTokenWasUnauthorizedOnPreviousAttempt = true
-            TokenManager.deleteToken(identifer, accessGroup: group)
+            let _ = TokenManager.deleteToken(identifer, accessGroup: group)
             self.load()
             return
         }
-        TokenManager.deleteToken(accessTokenIdentifier, accessGroup: keychainAccessGroup)
+        let _ = TokenManager.deleteToken(accessTokenIdentifier, accessGroup: keychainAccessGroup)
 
         let ridesClient = RidesClient(accessTokenIdentifier: identifer, keychainAccessGroup: group)
         ridesClient.refreshAccessToken(refreshToken) { (accessToken, response) in
             if let token = accessToken {
-                TokenManager.saveToken(token, tokenIdentifier: self.accessTokenIdentifier, accessGroup: self.keychainAccessGroup)
+                let _ = TokenManager.saveToken(token, tokenIdentifier: self.accessTokenIdentifier, accessGroup: self.keychainAccessGroup)
             }
             self.load()
         }

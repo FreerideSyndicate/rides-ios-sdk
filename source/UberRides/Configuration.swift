@@ -332,7 +332,7 @@ import WebKit
      - parameter type:              The Callback URI Type to use
      */
     open static func setCallbackURIString(_ callbackURIString: String?, type: CallbackURIType) {
-        var callbackURIs = self.callbackURIs ?? [CallbackURIType : String]()
+        var callbackURIs = self.callbackURIs 
         callbackURIs[type] = callbackURIString
         self.callbackURIs = callbackURIs
     }
